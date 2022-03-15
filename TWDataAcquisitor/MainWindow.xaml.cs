@@ -69,5 +69,11 @@ namespace TWDataAcquisitor
         {
             await _mainVm.StartCorrectionGannFinder();
         }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            var text = System.IO.File.ReadAllText("TWDataAc.js");
+            Clipboard.SetText(text);
+        }
     }
 }

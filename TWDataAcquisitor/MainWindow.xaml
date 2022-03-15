@@ -51,8 +51,9 @@
     <DockPanel Margin="5 5 5 0">
       <DockPanel.ContextMenu>
         <ContextMenu>
-                    <MenuItem Header="Exit" Click="MenuItem_Click"/>
-                    <MenuItem Header="Correction Gann" Click="MenuItem_Click_1"/>
+          <MenuItem Header="Exit" Click="MenuItem_Click"/>
+          <MenuItem Header="Copy Js Code" Click="MenuItem_Click_2"/>
+          <MenuItem Header="Correction Gann" Click="MenuItem_Click_1"/>
         </ContextMenu>
       </DockPanel.ContextMenu>
       <DockPanel DockPanel.Dock="Top">
