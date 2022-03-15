@@ -51,6 +51,7 @@
     <Compile Include="GannFanMatch.cs" />
     <Compile Include="GannFanMatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

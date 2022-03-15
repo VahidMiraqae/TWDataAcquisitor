@@ -5,7 +5,7 @@ namespace CorrectionGannFinder
 {
     internal class GannFanMatcher
     {
-        internal static GannFanMatch Match(GannFan fan, Candle[] candles)
+        internal static GannFanMatch Match(GannFan fan, Candle[] candles, int gap)
         {
             var match = new GannFanMatch(fan);
             foreach ((double a, double b) in fan.GetFans())
@@ -14,8 +14,8 @@ namespace CorrectionGannFinder
 
                 for (int i = 0; i < candles.Length; i++)
                 {
-                    var dis = GetDistance(candles[i], i, a, b); 
-                    if (dis < 0.02)
+                    var dis = GetDistance(candles[i], gap + i, a, b); 
+                    if (dis < 0.1)
                     {
                         count++;
                     }

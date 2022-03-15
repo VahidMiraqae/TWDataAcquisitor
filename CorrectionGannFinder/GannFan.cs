@@ -6,11 +6,11 @@ namespace CorrectionGannFinder
 {
     internal class GannFan
     { 
-        public GannFan(double startPrice, int time, double price1)
+        public GannFan(double startPrice, int startBar, double targetPrice)
         {
             StartPrice = startPrice;
-            Time = time;
-            Price = price1;
+            StartBar = startBar;
+            TargetPrice = targetPrice;
         }
 
         private static double[] _multipliers = new double[]
@@ -21,17 +21,17 @@ namespace CorrectionGannFinder
         };
 
         public double StartPrice { get; }
-        public int Time { get; }
-        public double Price { get; }
+        public int StartBar { get; }
+        public double TargetPrice { get; }
 
-        public IEnumerable<(double a, double b)> GetFans()
+        public IEnumerable<(double a, double b)> GetFans() // y = ax + b
         {
-            var m = (Price - StartPrice) / -Time;
+            var m = (TargetPrice - StartPrice) / -StartBar;
 
             for (int i = 0; i < _multipliers.Length; i++)
             {
                 var a = _multipliers[i] * m;
-                var b = StartPrice - a * Time;
+                var b = StartPrice - a * StartBar;
                 yield return (a, b);
             } 
         }
