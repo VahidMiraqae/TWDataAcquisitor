@@ -19,8 +19,8 @@ namespace CorrectionGannFinder
 
         public void Start()
         {
-            var source = "BINANCE";
-            var symbol = "BTCUSDT"; 
+            var source = "BITSTAMP";
+            var symbol = "BTCUSD"; 
 
             foreach (var timeframe in new[] {Timeframes.Hour1, Timeframes.Hour2, Timeframes.Hour4, Timeframes.Day1})
             {
@@ -37,14 +37,15 @@ namespace CorrectionGannFinder
                 return;
             }
 
-            var startPrice = 152;
-            var startDateTime = new DateTime(2013, 11, 30);
+            double startPrice = 152;
+            var startDateTime = new DateTime(2015, 1, 14);
 
-            var input = new SearchInput(5000, 30000, startDateTime, new DateTime(2017, 1, 1), new DateTime(2019, 1, 1), 100, 100);
+            var input = new SearchInput(1000, 30000, startDateTime, new DateTime(2017, 1, 1), new DateTime(2019, 1, 1), 100, 100);
 
             var neededCandles = candles.Where(aa => aa.Datetime >= startDateTime).ToArray();
             var gap = (int)((neededCandles[0].Datetime - startDateTime).TotalMinutes / Timeframes.Durations[timeframe].TotalMinutes);
 
+            startPrice = Math.Log10(startPrice);
 
             var matchList = new List<GannFanMatch>();
 
@@ -52,10 +53,16 @@ namespace CorrectionGannFinder
             {
                 Parallel.ForEach(input.GetPrices(), new ParallelOptions { MaxDegreeOfParallelism = 3 }, price =>
                 {
+                    price = Math.Log10(price);
 
-                    var fan = new GannFan(startPrice, bar, price);
+                    var fans = new[] {
+                        new GannFan(startPrice, bar, price, 0),
+                        new GannFan(startPrice, 0, price, bar),
+                        new GannFan(price, 0, startPrice, bar),
+                        new GannFan(price, bar, startPrice, 0),
+                    };
 
-                    var fanMatch = GannFanMatcher.Match(fan, neededCandles, gap);
+                    var fanMatch = GannFanMatcher.Match(fans, neededCandles, gap);
 
                     matchList.Add(fanMatch);
 
@@ -65,8 +72,8 @@ namespace CorrectionGannFinder
 
             var ordered = matchList.OrderByDescending(item => item.Score).Select(item =>
             {
-                var aa = ToDateTime(item.Fan.StartBar, startDateTime, timeframe).ToString("MMM dd, yyyy HH:mm");
-                var p = item.Fan.TargetPrice;
+                var aa = ToDateTime(item.Fans[0].StartBar, startDateTime, timeframe).ToString("MMM dd, yyyy HH:mm");
+                var p = Math.Pow(10, item.Fans[0].TargetPrice);
                 return $"{aa}\t{p}";
             }).ToList();
 

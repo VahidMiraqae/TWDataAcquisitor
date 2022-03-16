@@ -2,12 +2,12 @@
 {
     internal class GannFanMatch
     {
-        public GannFanMatch(GannFan fan)
+        public GannFanMatch(GannFan[] fan)
         {
-            Fan = fan;
+            Fans = fan;
         }
 
         public float Score { get; set; }
-        public GannFan Fan { get; }
+        public GannFan[] Fans { get; }
     }
 }

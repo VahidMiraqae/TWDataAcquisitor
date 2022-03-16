@@ -9,6 +9,11 @@ public class Candle
     public float Close { get; private set; }
     public float Volume { get; private set; }
 
+    public double OpenLog => Math.Log(Open);
+    public double HighLog => Math.Log(High);
+    public double LowLog => Math.Log(Low);
+    public double CloseLog => Math.Log(Close);
+
     public Candle(string ohlcvol)
     {
         // NewMethod(ohlcvol);
