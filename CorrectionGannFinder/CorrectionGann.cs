@@ -37,10 +37,10 @@ namespace CorrectionGannFinder
                 return;
             }
 
-            var startPrice = 3156.52;
-            var startDateTime = new DateTime(2017, 12, 17);
+            var startPrice = 152;
+            var startDateTime = new DateTime(2013, 11, 30);
 
-            var input = new SearchInput(60000, 500000, startDateTime, new DateTime(2021, 1, 1), new DateTime(2023, 12, 1), 300, 300);
+            var input = new SearchInput(5000, 30000, startDateTime, new DateTime(2017, 1, 1), new DateTime(2019, 1, 1), 100, 100);
 
             var neededCandles = candles.Where(aa => aa.Datetime >= startDateTime).ToArray();
             var gap = (int)((neededCandles[0].Datetime - startDateTime).TotalMinutes / Timeframes.Durations[timeframe].TotalMinutes);

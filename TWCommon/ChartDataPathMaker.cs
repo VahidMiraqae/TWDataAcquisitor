@@ -22,8 +22,8 @@ namespace TWCommon
         private string GetChartDataDir()
         {
             var dirName = "chart_data";
-            var parentDir = "";
             var dir = ConfigurationManager.AppSettings["ChartDataDir"];
+            var parentDir = dir;
 
             if (string.IsNullOrWhiteSpace(dir))
             {
