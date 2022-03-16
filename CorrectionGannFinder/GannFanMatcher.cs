@@ -15,7 +15,7 @@ namespace CorrectionGannFinder
                 for (int i = 0; i < candles.Length; i++)
                 {
                     var dis = GetDistance(candles[i], gap + i, a, b); 
-                    if (dis < 0.1)
+                    if (dis < 0.03)
                     {
                         count++;
                     }

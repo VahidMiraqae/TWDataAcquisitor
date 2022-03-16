@@ -20,7 +20,7 @@ namespace CorrectionGannFinder
         public void Start()
         {
             var source = "BINANCE";
-            var symbol = "DOTUSDT"; 
+            var symbol = "BTCUSDT"; 
 
             foreach (var timeframe in new[] {Timeframes.Hour1, Timeframes.Hour2, Timeframes.Hour4, Timeframes.Day1})
             {
@@ -37,10 +37,10 @@ namespace CorrectionGannFinder
                 return;
             }
 
-            var startPrice = 2.0;
-            var startDateTime = new DateTime(2020, 8, 19);
+            var startPrice = 3156.52;
+            var startDateTime = new DateTime(2017, 12, 17);
 
-            var input = new SearchInput(60, 300, startDateTime, new DateTime(2022, 7, 1), new DateTime(2023, 1, 1), 50, 50);
+            var input = new SearchInput(60000, 500000, startDateTime, new DateTime(2021, 1, 1), new DateTime(2023, 12, 1), 300, 300);
 
             var neededCandles = candles.Where(aa => aa.Datetime >= startDateTime).ToArray();
             var gap = (int)((neededCandles[0].Datetime - startDateTime).TotalMinutes / Timeframes.Durations[timeframe].TotalMinutes);

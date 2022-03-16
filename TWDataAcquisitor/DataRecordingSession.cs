@@ -53,7 +53,7 @@ internal class ChartDataRecordingSession : IRecordingSession
 
     public async Task AcquireData()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 100; i++)
         {
             if (!File.Exists(_dataFilePath))
             {
